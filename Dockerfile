@@ -13,8 +13,12 @@ FROM nginx:latest
 # Set working directory to nginx resources directory
 #WORKDIR /usr/share/nginx/html
 # Remove default nginx static resources
-RUN rm -rf ./*
+#RUN rm -rf ./*
 # Copies static resources from builder stage
-COPY --from=builder /app .
+#COPY --from=builder /app .
 # Containers run nginx with global directives and daemon off
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+#ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+COPY --from=builder /app/client/dist/client/ /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 4200
