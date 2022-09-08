@@ -19,6 +19,6 @@ FROM nginx:latest
 # Containers run nginx with global directives and daemon off
 #ENTRYPOINT ["nginx", "-g", "daemon off;"]
 
-COPY --from=builder /app/client/dist/client/ /usr/share/nginx/html
+COPY --from=builder /client/dist/client/ /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 4200
