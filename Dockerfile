@@ -1,24 +1,6 @@
-FROM node:14 AS builder
+FROM node:current-alpine3.15
 WORKDIR /app
-COPY package.json ./
+ADD . /app
 RUN npm install
-COPY . ./
-RUN npm run build
-
-#Stage 2
-#######################################
-#pull the official nginx:1.19.0 base image
-FROM nginx:latest
-#copies React to the container directory
-# Set working directory to nginx resources directory
-#WORKDIR /usr/share/nginx/html
-# Remove default nginx static resources
-#RUN rm -rf ./*
-# Copies static resources from builder stage
-#COPY --from=builder /app .
-# Containers run nginx with global directives and daemon off
-#ENTRYPOINT ["nginx", "-g", "daemon off;"]
-
-COPY --from=builder /client/dist/client/ /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 4200
+EXPOSE 6000
+CMD ["npm", "start"]
