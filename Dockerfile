@@ -1,4 +1,4 @@
-FROM node:14 AS web-build
+FROM node:14 AS builder
 WORKDIR /app
 COPY package.json ./
 RUN npm install
